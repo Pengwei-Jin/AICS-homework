@@ -47,7 +47,7 @@ def power_diff():
                                dtype=dtype, scope="global")
             input2 = bp.Tensor(shape=(len,), name="input2",
                                dtype=dtype, scope="global")
-            output = bp.Tensor(shape=(SHAPE,), name="output",
+            output = bp.Tensor(shape=(len,), name="output",
                                dtype=dtype, scope="global")
             input1_nram = bp.Tensor(shape=(SHAPE,), name="input1_nram",
                                     dtype=dtype, scope="nram")

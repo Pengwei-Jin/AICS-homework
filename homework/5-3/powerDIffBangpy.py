@@ -68,15 +68,15 @@ def power_diff():
                         # TODO：条件与循环控制
             with bp.if_scope(rem != 0):
                 # TODO：数据拷入操作 gdram -> nram
-                bp.memcpy(input1_nram[:rem], input1[(quotient+1)*SHAPE:rem+(quotient+1)*SHAPE])
-                bp.memcpy(input2_nram[:rem], input2[(quotient+1)*SHAPE:rem+(quotient+1)*SHAPE])
+                bp.memcpy(input1_nram[:rem], input1[quotient*SHAPE:rem+quotient*SHAPE])
+                bp.memcpy(input2_nram[:rem], input2[quotient*SHAPE:rem+quotient*SHAPE])
                 # TODO：计算描述
                 bp.subtract(input1_nram[:rem], input1_nram[:rem], input2_nram[:rem])
                 bp.memcpy(input2_nram[:rem], input1_nram[:rem])
                 with bp.for_range(0, pow-1) as j:
                     bp.multiply(input1_nram[:rem], input1_nram[:rem], input2_nram[:rem])
                 # TODO：数据拷出操作 nram -> gdram
-                bp.memcpy(output[(quotient+1)*SHAPE:rem+(quotient+1)*SHAPE], input1_nram[:rem])
+                bp.memcpy(output[quotient*SHAPE:rem+quotient*SHAPE], input1_nram[:rem])
         # BPL编译           
         f = bp.BuildBANG(inputs=[input1, input2, len, pow], outputs=[output],
                          kernel_name="PowerDifferenceKernel")
